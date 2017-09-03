@@ -1,14 +1,23 @@
-angular.module('listings').controller('ListingsController', ['$scope', 'Listings', 
+angular.module('listings').controller('ListingsController', ['$scope', 'Listings',
   function($scope, Listings) {
     $scope.listings = Listings;
     $scope.detailedInfo = undefined;
 
-    /* 
-      Implement these functions in the controller to make your application function 
-      as described in the assignment spec. 
+    /*
+      Implement these functions in the controller to make your application function
+      as described in the assignment spec.
      */
-    $scope.addListing = function() {};
-    $scope.deleteListing = function(index) {};
-    $scope.showDetails = function(index) {};
+    $scope.addListing = function() {
+      
+    };
+    $scope.deleteListing = function(index) {
+
+    };
+    $scope.showDetails = function(index) {
+      $scope.code = Listings[index].code;
+      $scope.name = Listings[index].name;
+      $scope.coor = Listings[index].coordinates;
+      $scope.addr = Listings[index].address;
+    };
   }
 ]);

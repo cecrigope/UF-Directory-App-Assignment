@@ -6,3 +6,50 @@
   max-height: 400px;
   overflow: auto;
 }
+
+.remove-top-padding {
+  padding: 0px 15px 15px 15px;
+}
+
+.headline {
+  padding: 0px 15px 0px 15px;
+}
+
+.col-sm-3 {
+  padding-left: 0px;
+  vertical-align: text-top;
+}
+
+body {
+  background: url("assets/background.jpg");
+  font-family: 'Monda';
+  background-position: 50% 40%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.headline {
+  font-family: 'Fugaz One';
+  text-transform: uppercase;
+  color: #FF5533;
+  font-size: 64px;
+}
+
+.container {
+  background: white;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 6px;
+}
+
+.jumbotron {
+  padding: 20px 20px 20px 20px;
+  min-height: 400px;
+}
+
+h2 {
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 25px;
+}
