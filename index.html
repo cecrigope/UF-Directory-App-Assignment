@@ -17,7 +17,7 @@
       <hr>
     </div>
 
-    <div class="row">
+    <div class="row-special">
       <div class="col-md-6">
         <div class="input-group" id="searchBar">
           <!--
@@ -27,7 +27,7 @@
           <input ng-model="searchText" type="text" class="form-control" placeholder="Search">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 special">
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal" style="float: right">Add to directory</button>
       </div>
     </div>
@@ -42,22 +42,17 @@
               <th>BUILDING NAME</th>
               <th></th>
             </tr>
-            <tr ng-repeat="listing in listings | filter:searchText" ng-click="showDetails($index)">
+            <tr ng-repeat="listing in listings | filter:searchText" ng-click="showDetails(listing)">
               <th>{{ listing.code }}</th>
               <th>{{ listing.name }}</th>
               <th>
-                <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#removeModal">
+                <button type="button" class="btn btn-danger btn-xs" ng-click="deleteListing(listing)">
                   <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
               </th>
             </tr>
           </table>
         </div>
-        <!--
-
-              Write an HTML form that adds new listings to the directory
-
-            -->
       </div>
 
       <div class="col-md-6">
@@ -117,88 +112,6 @@
               </tr>
             </tbody>
           </table>
-
-          <!--
-
-              Include a way to display detailed information about an individual listing:
-                   * consider how to use ng-click within the the table to implement this feature
-
-             -->
-        </div>
-
-        <!-- Remove  modal -->
-        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2 class="modal-title" id="removeModalLabel">Confirmation</h2>
-              </div>
-              <div class="modal-body">
-                <p>
-                  Are you sure you want to <strong>remove</strong> the following building from the directory?
-                </p>
-                <table>
-                  <tbody>
-                    <tr>
-                      <div class="row">
-                        <th class="col-sm-2">
-                          <p><strong>Code: </strong></p>
-                        </th>
-                        <td class="col-sm-10">
-                          <p> {{ code }} </p>
-                        </td>
-                      </div>
-                    </tr>
-                    <tr>
-                      <div class="row">
-                        <th class="col-sm-2">
-                          <p><strong>Name: </strong></p>
-                        </th>
-                        <td class="col-sm-10">
-                          <p> {{ name }} </p>
-                        </td>
-                      </div>
-                    </tr>
-                    <tr>
-                      <div class="row">
-                        <th class="col-sm-2">
-                          <p><strong>Latitude: </strong></p>
-                        </th>
-                        <td class="col-sm-10">
-                          <p> {{ coor.latitude }} </p>
-                        </td>
-                      </div>
-                    </tr>
-                    <tr>
-                      <div class="row">
-                        <th class="col-sm-2">
-                          <p><strong>Longitude: </strong></p>
-                        </th>
-                        <td class="col-sm-10">
-                          <p> {{ coor.longitude }} </p>
-                        </td>
-                      </div>
-                    </tr>
-                    <tr>
-                      <div class="row">
-                        <th class="col-sm-2">
-                          <p><strong>Address: </strong></p>
-                        </th>
-                        <td class="col-sm-10">
-                          <p> {{ addr }} </p>
-                        </td>
-                      </div>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Remove</button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <!-- Add modal -->
@@ -215,30 +128,30 @@
                 <form ng-submit="addListing()">
                   <form class="form-group">
                     <label for="code">Building Code</label>
-                    <input type="code" class="form-control" id="code">
+                    <input type="text" class="form-control" ng-model="buildingCode" name="code">
                   </form>
                   <form class="form-group">
                     <label for="name">Building Name</label>
-                    <input type="name" class="form-control" id="name">
+                    <input type="text" class="form-control" ng-model="buildingName" name="name">
                   </form>
                   <form class="form-group">
                     <label for="latitude">Latitude</label>
-                    <input type="latitude" class="form-control" id="latitude">
+                    <input type="text" class="form-control" ng-model="buildingCoor.latitude" name="coor.latitude">
                   </form>
                   <form class="form-group">
                     <label for="longitude">Longitude</label>
-                    <input type="longitude" class="form-control" id="longitude">
+                    <input type="text" class="form-control" ng-model="buildingCoor.longitude" name="coor.longitude">
                   </form>
                   <form class="form-group">
                     <label for="address">Address</label>
-                    <textarea type="address "class="form-control" id="address" rows="4"></textarea>
+                    <input type="text" class="form-control" ng-model="buildingAddr" name="addr" rows="4">
                   </form>
                 </form>
               </div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Add</button>
+                <button ng-click="addListing()" type="button" class="btn btn-success">Add</button>
               </div>
 
             </div>
