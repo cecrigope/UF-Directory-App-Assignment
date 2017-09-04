@@ -20,15 +20,15 @@
     <div class="row-special">
       <div class="col-md-6">
         <div class="input-group" id="searchBar">
-          <!--
-            Implement a way to filter through listings using the search bar
-          -->
           <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
           <input ng-model="searchText" type="text" class="form-control" placeholder="Search">
         </div>
       </div>
+
       <div class="col-md-6 special">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal" style="float: right">Add to directory</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal" style="float: right">
+          Add to directory
+        </button>
       </div>
     </div>
 
@@ -121,11 +121,11 @@
 
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2 class="modal-title" id="addModalLabel">Add Building</h2>
+                <h2 class="modal-title" id="addModalLabel">Add to directory</h2>
               </div>
 
               <div class="modal-body">
-                <form ng-submit="addListing()">
+                <div ng-submit="addListing()">
                   <form class="form-group">
                     <label for="code">Building Code</label>
                     <input type="text" class="form-control" ng-model="buildingCode" name="code">
@@ -146,7 +146,7 @@
                     <label for="address">Address</label>
                     <input type="text" class="form-control" ng-model="buildingAddr" name="addr" rows="4">
                   </form>
-                </form>
+                </div>
               </div>
 
               <div class="modal-footer">

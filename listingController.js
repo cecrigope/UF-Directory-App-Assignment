@@ -26,11 +26,12 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
     };
 
     $scope.deleteListing = function(index) {
-      console.log(index);
-      $scope.listings.splice(index, 1);
+      indexNum = Listings.indexOf(index);
+      $scope.listings.splice(indexNum, 1);
     };
 
     $scope.showDetails = function(index) {
+      console.log(index);
       $scope.code = index.code;
       $scope.name = index.name;
       $scope.coor = index.coordinates;
