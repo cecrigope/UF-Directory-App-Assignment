@@ -31,7 +31,6 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
     };
 
     $scope.showDetails = function(index) {
-      console.log(index);
       $scope.code = index.code;
       $scope.name = index.name;
       $scope.coor = index.coordinates;
