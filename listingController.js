@@ -20,8 +20,8 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
       $scope.buildingCoor.longitude = undefined;
       $scope.buildingAddr = undefined;
 
-      $('#addModal').modal({
-        close: true
+      $(function() {
+        $('#addModal').modal('toggle');
       });
     };
 
