@@ -1,13 +1,12 @@
 /* Import mongoose and define any variables needed to create the schema */
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
 /* Create your schema */
 var listingSchema = new Schema({
   code: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   name: {
     type: String,
@@ -15,7 +14,7 @@ var listingSchema = new Schema({
   },
   coordinates: {
     latitude: Number,
-    longitude: type: Number
+    longitude: Number
   },
   address: String
 });
@@ -23,11 +22,11 @@ var listingSchema = new Schema({
 /* create a 'pre' function that adds the updated_at (and created_at if not already there) property */
 listingSchema.pre('save', function(next) {
   /* your code here */
-  var date = new Date();
-  this.updated_at = date;
+  var newDdate = new Date();
+  this.updated_at = newDdate;
 
-  if(!this.created_at){
-    this.create_at = date;
+  if (!this.created_at) {
+    this.create_at = newDdate;
   }
 
   next();
