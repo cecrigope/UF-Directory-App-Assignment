@@ -51,7 +51,7 @@ var updatePhelpsMemorial = function() {
   Listing.findOneAndUpdate({
     name: 'Phelps Laboratory'
   }, {
-    address: 'Phelps Laboratory, Gainesville, FL 32608'
+    address: 'Phelps Laboratory, Gainesville, FL 32603'
   }, function(error, response) {
     if (error) {
       throw error;
