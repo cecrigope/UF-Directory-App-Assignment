@@ -1,8 +1,10 @@
 /* Fill out these functions using Mongoose queries*/
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
   Listing = require('./ListingSchema.js'),
-  config = require(. / config);
+  Schema = mongoose.Schema,
+  config = require('./config');
+
+mongoose.connect("mongodb://admin:password@ds127044.mlab.com:27044/assignment3")
 
 var findLibraryWest = function() {
   /*
@@ -27,18 +29,13 @@ var removeCable = function() {
     and remove this listing from your database and log the document to the console.
    */
 
-  Listing.findOne({
+  Listing.findOneAndRemove({
     code: 'CABL'
-  }, function(error, response) {
+  }, function(error) {
     if (error) {
       throw error;
     }
-
-    response.remove(function(error) {
-      if (error) {
-        throw error;
-      }
-    });
+    console.log("CABLE REMOVED");
   });
 };
 
@@ -66,12 +63,12 @@ var retrieveAllListings = function() {
     Retrieve all listings in the database, and log them to the console.
    */
 
-   Listing.find({}, function(error, response) {
-     if (error) {
-       throw error;
-     }
-     console.log(data);
-   });
+  Listing.find({}, function(error, response) {
+    if (error) {
+      throw error;
+    }
+    console.log(response);
+  });
 };
 
 findLibraryWest();
