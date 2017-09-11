@@ -1,7 +1,7 @@
 var should = require('should'), 
     mongoose = require('mongoose'), 
-    Listing = require('./ListingSchema'), 
-    config = require('./config');
+    Listing = require('../models/listings.server.model'), 
+    config = require('../config/config');
 
 var listing, id;
 
