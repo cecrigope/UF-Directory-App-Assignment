@@ -12,14 +12,13 @@ var mongoose = require('mongoose'),
  */
 
 /* Create a listing */
-exports.create = function(req, res) {
+exports.create = function(req, response) {
 
   /* Instantiate a Listing */
   var listing = new Listing(req.body);
 
   /* save the coordinates (located in req.results if there is an address property) */
   if (req.results) {
-
     listing.coordinates = {
       latitude: req.results.lat,
       longitude: req.results.lng
@@ -30,65 +29,76 @@ exports.create = function(req, res) {
   listing.save(function(err) {
     if (err) {
       console.log(err);
-      res.status(400).send(err);
+      response.status(400).send(err);
     } else {
-      res.json(listing);
+      response.json(listing);
     }
   });
 };
 
 /* Show the current listing */
-exports.read = function(req, res) {
+exports.read = function(req, response) {
   /* send back the listing as json from the request */
-  console.log("SHOW CURRENT LISTING");
-  res.json(req.listing);
+  response.json(req.listing);
 };
 
 /* Update a listing */
-exports.update = function(req, res) {
+exports.update = function(req, response) {
   var listing = req.listing;
 
   /* Replace the article's properties with the new properties found in req.body */
   /* save the coordinates (located in req.results if there is an address property) */
   /* Save the article */
 
-// TEST CODE - CÉSAR 09/11/2017 @ 5:59 PM
-  // listing.findOneAndUpdate({}, {}, function(err, response) {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(400).send(err);
-  //   } else {
-  //     res.json(res.listing);
-  //   }
-  // });
-};
+  if (req.listing) {
+    listing.code = req.body.code;
+    listing.name = req.body.name;
+    listing.address = req.body.address;
+  }
 
-/* Delete a listing */
-exports.delete = function(req, res) {
-  var listing = req.listing;
+  if (req.results) {
+    listing.coordinates = {
+      latitude: req.results.lat,
+      longitude: req.results.lng
+    };
+  }
 
-  /* Remove the article */
-  Listing.findOne({ code: listing.code }, function(err, response) {
+  listing.save(function(err) {
     if (err) {
       console.log(err);
-      res.status(400).send(err);
+      response.status(400).send(err);
     } else {
-      console.log("REMOVE ARTICLE");
-      listing.remove(function(err) { });
+      response.json(req.listing);
     }
   });
 };
 
-/* Retreive all the directory listings, sorted alphabetically by listing code */
-exports.list = function(req, res) {
-  /* Your code here */
-  Listing.find({ }, function(err, response) {
+/* Delete a listing */
+exports.delete = function(req, response) {
+  var listing = req.listing;
+
+  /* Remove the article */
+  Listing.remove(function(err) {
     if (err) {
       console.log(err);
-      res.status(400);
+      response.status(400).send(err);
+    } else {
+      console.log("REMOVE ARTICLE");
+      response.end();
+    }
+  });
+};
+
+/* Retrieve all the directory listings, sorted alphabetically by listing code */
+exports.list = function(req, response) {
+  /* Your code here */
+  Listing.find().sort('code').exec(function(err, listings) {
+    if (err) {
+      console.log(err);
+      response.status(400).send(err);
     } else {
       console.log("RETRIEVE ALL");
-      res.json(response);
+      response.json(listings);
     }
   });
 };
@@ -100,10 +110,10 @@ exports.list = function(req, res) {
         bind it to the request object as the property 'listing',
         then finally call next
  */
-exports.listingByID = function(req, res, next, id) {
+exports.listingByID = function(req, response, next, id) {
   Listing.findById(id).exec(function(err, listing) {
     if (err) {
-      res.status(400).send(err);
+      response.status(400).send(err);
     } else {
       req.listing = listing;
       next();
