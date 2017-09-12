@@ -23,8 +23,8 @@ module.exports.init = function() {
   app.use(bodyParser.json());
 
   /* server wrapper around Google Maps API to get latitude + longitude coordinates from address */
-  app.post('/api/coordinates', getCoordinates, function(req, res) {
-    res.send(req.results);
+  app.post('/api/coordinates', getCoordinates, function(request, response) {
+    response.send(request.results);
   });
 
   /* serve static files */
@@ -34,7 +34,7 @@ module.exports.init = function() {
   app.use('/api/listings', listingsRouter);
 
   /* go to homepage for all routes not specified */
-  app.get('/*', function(req, res) {
+  app.get('/*', function(request, response) {
     return response.direct('/');
   });
 
