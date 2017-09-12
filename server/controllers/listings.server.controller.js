@@ -83,7 +83,6 @@ exports.delete = function(req, response) {
       console.log(err);
       response.status(400).send(err);
     } else {
-      console.log("REMOVE ARTICLE");
       response.end();
     }
   });
@@ -97,7 +96,6 @@ exports.list = function(req, response) {
       console.log(err);
       response.status(400).send(err);
     } else {
-      console.log("RETRIEVE ALL");
       response.json(listings);
     }
   });
