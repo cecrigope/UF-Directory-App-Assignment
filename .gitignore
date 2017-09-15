@@ -6,3 +6,6 @@ server/config/config.js
 
 # node
 node_modules
+
+# bower
+public
