@@ -1,5 +1,6 @@
 angular.module('listings').controller('ListingsController', ['$scope', '$location', '$stateParams', '$state', 'Listings',
   function($scope, $location, $stateParams, $state, Listings) {
+
     $scope.find = function() {
       /* set loader*/
       $scope.loading = true;
@@ -15,7 +16,6 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
     };
 
     $scope.findOne = function() {
-      // debugger;
       $scope.loading = true;
 
       /*
@@ -82,6 +82,9 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         occurs, pass it to $scope.error.
        */
 
+      console.log('CLIENT CONTROLLER - LINE 79 ');
+      console.log(isValid);
+
       $scope.error = null;
 
       if (!isValid) {
@@ -89,14 +92,19 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         return false;
       }
 
+      var id = $stateParams.listingId;
+      console.log(id);
+
       var listing = {
         name: $scope.listing.name,
         code: $scope.listing.code,
         address: $scope.listing.address
       }
+      console.log(listing);
 
-      Listings.update($stateParams.listingId, listing).then(function(response) {
-        $state.go('listing.list', {
+      Listings.update(id, listing).then(function(response) {
+        console.log('CLIENT CONTROLLER - LINE 106');
+        $state.go('listings.list', {
           successMessage: 'Successfully updated listing'
         })
       }, function(error) {
@@ -112,7 +120,9 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
 
       $scope.error = null;
 
-      Listings.delete($stateParams.listingId).then(function(response) {
+      var id = $stateParams.listingId;
+
+      Listings.delete(id).then(function(response) {
         $state.go('listings.list', {
           successMessage: 'Successfully deleted listing'
         })
