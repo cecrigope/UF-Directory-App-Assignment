@@ -57,9 +57,9 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
 
       /* Create the listing object */
       var listing = {
-        name: $scope.name,
-        code: $scope.code,
-        address: $scope.address
+        name: $scope.listing.name,
+        code: $scope.listing.code,
+        address: $scope.listing.address
       };
 
       /* Save the article using the Listings factory */
