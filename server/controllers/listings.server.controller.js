@@ -1,6 +1,6 @@
 /* Dependencies */
-var mongoose = require('mongoose'),
-  Listing = require('../models/listings.server.model.js');
+var mongoose = requestuire('mongoose'),
+  Listing = requestuire('../models/listings.server.model.js');
 
 /*
   In this file, you should use Mongoose queries in order to retrieve/add/remove/update listings.
@@ -12,24 +12,24 @@ var mongoose = require('mongoose'),
  */
 
 /* Create a listing */
-exports.create = function(req, response) {
+exports.create = function(request, response) {
 
   /* Instantiate a Listing */
-  var listing = new Listing(req.body);
+  var listing = new Listing(request.body);
 
-  /* save the coordinates (located in req.results if there is an address property) */
-  if (req.results) {
+  /* save the coordinates (located in request.results if there is an address property) */
+  if (request.results) {
     listing.coordinates = {
-      latitude: req.results.lat,
-      longitude: req.results.lng
+      latitude: request.results.lat,
+      longitude: request.results.lng
     };
   }
 
   /* Then save the listing */
-  listing.save(function(err) {
-    if (err) {
-      console.log(err);
-      response.status(400).send(err);
+  listing.save(function(error) {
+    if (error) {
+      console.log(error);
+      response.status(400).send(error);
     } else {
       response.json(listing);
     }
@@ -37,51 +37,51 @@ exports.create = function(req, response) {
 };
 
 /* Show the current listing */
-exports.read = function(req, response) {
+exports.read = function(request, response) {
   /* send back the listing as json from the request */
-  response.json(req.listing);
+  response.json(request.listing);
 };
 
 /* Update a listing */
-exports.update = function(req, response) {
-  var listing = req.listing;
+exports.update = function(request, response) {
+  var listing = request.listing;
 
-  /* Replace the article's properties with the new properties found in req.body */
-  /* save the coordinates (located in req.results if there is an address property) */
+  /* Replace the article's properties with the new properties found in request.body */
+  /* save the coordinates (located in request.results if there is an address property) */
   /* Save the article */
 
-  if (req.listing) {
-    listing.code = req.body.code;
-    listing.name = req.body.name;
-    listing.address = req.body.address;
+  if (request.listing) {
+    listing.code = request.body.code;
+    listing.name = request.body.name;
+    listing.address = request.body.address;
   }
 
-  if (req.results) {
+  if (request.results) {
     listing.coordinates = {
-      latitude: req.results.lat,
-      longitude: req.results.lng
+      latitude: request.results.lat,
+      longitude: request.results.lng
     };
   }
 
-  listing.save(function(err) {
-    if (err) {
-      console.log(err);
-      response.status(400).send(err);
+  listing.save(function(error) {
+    if (error) {
+      console.log(error);
+      response.status(400).send(error);
     } else {
-      response.json(req.listing);
+      response.json(request.listing);
     }
   });
 };
 
 /* Delete a listing */
-exports.delete = function(req, response) {
-  var listing = req.listing;
+exports.delete = function(request, response) {
+  var listing = request.listing;
 
   /* Remove the article */
-  Listing.remove(function(err) {
-    if (err) {
-      console.log(err);
-      response.status(400).send(err);
+  Listing.remove(function(error) {
+    if (error) {
+      console.log(error);
+      response.status(400).send(error);
     } else {
       response.end();
     }
@@ -89,12 +89,12 @@ exports.delete = function(req, response) {
 };
 
 /* Retrieve all the directory listings, sorted alphabetically by listing code */
-exports.list = function(req, response) {
+exports.list = function(request, response) {
   /* Your code here */
-  Listing.find().sort('code').exec(function(err, listings) {
-    if (err) {
-      console.log(err);
-      response.status(400).send(err);
+  Listing.find().sort('code').exec(function(error, listings) {
+    if (error) {
+      console.log(error);
+      response.status(400).send(error);
     } else {
       response.json(listings);
     }
@@ -108,12 +108,12 @@ exports.list = function(req, response) {
         bind it to the request object as the property 'listing',
         then finally call next
  */
-exports.listingByID = function(req, response, next, id) {
-  Listing.findById(id).exec(function(err, listing) {
-    if (err) {
-      response.status(400).send(err);
+exports.listingByID = function(request, response, next, id) {
+  Listing.findById(id).exec(function(error, listing) {
+    if (error) {
+      response.status(400).send(error);
     } else {
-      req.listing = listing;
+      request.listing = listing;
       next();
     }
   });
