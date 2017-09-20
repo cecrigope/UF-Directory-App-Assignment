@@ -82,28 +82,22 @@ angular.module('listings').controller('ListingsController', ['$scope', '$locatio
         occurs, pass it to $scope.error.
        */
 
-      console.log('CLIENT CONTROLLER - LINE 79 ');
-      console.log(isValid);
-
       $scope.error = null;
 
       if (!isValid) {
-        $scope.broadcast('show-errors-check-validity', 'articleForm');
+        $scope.$broadcast('show-errors-check-validity', 'articleForm');
         return false;
       }
 
       var id = $stateParams.listingId;
-      console.log(id);
 
       var listing = {
         name: $scope.listing.name,
         code: $scope.listing.code,
         address: $scope.listing.address
       }
-      console.log(listing);
 
       Listings.update(id, listing).then(function(response) {
-        console.log('CLIENT CONTROLLER - LINE 106');
         $state.go('listings.list', {
           successMessage: 'Successfully updated listing'
         })
